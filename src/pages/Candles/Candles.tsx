@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DataPoint from '../../interfaces/DataPoint';
 import CandlestickChart from '../../components/CandlestickChart/CandlestickChart';
+import styles from "./Candles.module.scss"
 
 const tempData = [
   [1722178800000, '67746.00000000', '67777.77000000', '67577.63000000', '67645.00000000', '325.75611000', 1722182399999, '22045798.69396930', 34298, '139.66477000', '9451461.96623660', '0'],
@@ -15,6 +16,33 @@ const tempData = [
   [1722211200000, '68249.88000000', '68999.00000000', '68168.00000000', '68714.01000000', '1541.58518000', 1722214799999, '105950500.76234130', 92312, '850.76909000', '58467945.45154290', '0'],
 ];
 
+const currency = 'USDT';
+
+const coins = [
+	[ "Bitcoin", `BTC`],
+	[ "Ethereum", `ETH`],
+	[ "BinanceCoin", `BNB`],
+	[ "Ripple", `XRP`],
+	[ "Cardano", `ADA`],
+	[ "Solana", `SOL`],
+	[ "Polkadot", `DOT`],
+	[ "Dogecoin", `DOGE`],
+	[ "Polygon", `MATIC`],
+	[ "Avalanche", `AVAX`],
+	[ "Litecoin", `LTC`],
+]
+
+const intervals = [
+	['1 час', '1h'],
+	['2 часа', '2h'],
+	['4 часа', '4h'],
+	['6 часов', '6h'],
+	['8 часов', '8h'],
+	['12 часов', '12h'],
+	['1 день', '1d'],
+];
+
+const numbersOfCandles = [10, 20, 50, 100, 150, 200];
 
 interface RawData {
 	[index: number]: number | string
@@ -42,7 +70,6 @@ function dataPreparation(rawData: RawData[]): DataPoint[] {
 
 
 
-
 export default function Candles() {
 	const [data, setData] = useState<DataPoint[]>([]);
 
@@ -52,11 +79,39 @@ export default function Candles() {
 
     return (
 			<>
-				<h1>Candlestick Chart</h1>
-				<div
-					style={{ display: 'flex', justifyContent: 'center', margin: '100px' }}
-				>
-					<CandlestickChart data={data} width={800} ratio={3} />
+				<h1 className={styles.header}>График свечей</h1>
+
+				<div className={styles.container}>
+
+					<div className={styles.chart}>
+						<CandlestickChart data={data} width={800} ratio={3} />
+					</div>
+
+					<form className={styles.settings}>
+
+						<div className={styles.formGroup}>
+							<label htmlFor='coin'>Монета</label>
+							<select id='coin' name='coin'>
+								{ coins.map((coin: string[], index) => <option value={`${coin[1]}${currency}`} key={index}>{coin[0]}</option> ) }
+							</select>
+						</div>
+					
+						<div className={styles.formGroup}>
+							<label htmlFor='interval'>Интервал</label>
+							<select id='interval' name='interval'>
+								{ intervals.map((interval: string[], index ) => <option value={interval[1]} key={index}>{interval[0]}</option>)}
+							</select>
+						</div>
+
+						<div className={styles.formGroup}>
+							<label htmlFor='candles'>Количество свечей</label>
+							<select id='candles' name='candles'>
+								{ numbersOfCandles.map((num: number, index) => <option value={num} key={index}>{num}</option>)}
+							</select>
+						</div>
+
+						<button className={styles.submitButton}>Готово</button>
+					</form>
 				</div>
 			</>
 		)

@@ -1,7 +1,7 @@
 import React from 'react';
 import Candles from './pages/Candles/Candles';
 import PriceChange from './pages/PriceChange/PriceChange'
-import Prices from './pages/Prices/Prices'
+import Prices from './pages/Home/Home'
 import Navigation from './components/Navigation/Navigation';
 import { Route, Routes } from 'react-router-dom';
 

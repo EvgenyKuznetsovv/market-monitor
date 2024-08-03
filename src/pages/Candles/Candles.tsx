@@ -27,7 +27,7 @@ export default function Candles() {
 	const isLoading = candles.status === 'loading';
 	const isError = candles.status === 'error';
 
-	function FormHandler(coin: string, interval: string, candleNumber: number) {
+	function formHandler(coin: string, interval: string, candleNumber: number) {
 		dispatch(fetchCandles({symbol: `${coin}${currency}`, interval, limit: candleNumber}));
 		console.log(coin, interval, candleNumber);
 	};
@@ -48,7 +48,7 @@ export default function Candles() {
 					</div>
 
 					<div className={styles.settings}>
-						<CandleForm send={FormHandler}/>
+						<CandleForm send={formHandler}/>
 					</div>
 					
 				</div>

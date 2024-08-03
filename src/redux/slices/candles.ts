@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, combineSlices } from "@reduxjs/toolkit";
 import { candlesDataPreparation } from "../dataProcessing";
 import DataPoint from "../../interfaces/DataPoint";
-import axios from "axios";
 
 export const fetchCandles = createAsyncThunk(
   'candles/fetchCandles',
@@ -19,18 +18,18 @@ export const fetchCandles = createAsyncThunk(
 );
 
 
-interface CandlesState {
+interface ICandlesState {
 	candles: DataPoint[]
 	status: 'loading' | 'loaded' | 'error'
 }
 
-const initialState: CandlesState = {
+const initialState: ICandlesState = {
     candles: [],
     status: 'loading',
 };
 
 const candlesSlice = createSlice({
-    name: 'slices',
+    name: 'candles',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{

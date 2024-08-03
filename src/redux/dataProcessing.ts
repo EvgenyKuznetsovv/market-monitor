@@ -1,4 +1,5 @@
 import DataPoint from "../interfaces/DataPoint"
+import IPriceData from "../interfaces/IPriceData"
 
 interface RawData {
 	[index: number]: number | string
@@ -23,4 +24,13 @@ export function candlesDataPreparation(rawData: RawData[]): DataPoint[] {
 
 	return processedData
 }
+
+
+export function priceDataProcessed(priceData: IPriceData[], currency: string, coins: string[][]):IPriceData[] {
+    const coinSymbols = coins.map(coin => `${coin[1]}${currency}`);
+    const filteredData = priceData.filter(item => coinSymbols.includes(item.symbol));
+    const cleanFilterData = filteredData.map(item => ({symbol: item.symbol.replace(currency, ''), price: (+item.price).toFixed(2) }) )
+    return cleanFilterData;
+}
+
 

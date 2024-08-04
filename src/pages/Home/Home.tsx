@@ -25,11 +25,10 @@ export default function Home (){
 	return (
 		<>
 			<h1 className={styles.siteName}>Market Monitor</h1>
-			{isLoading && <Loading />}
-			{isError && <Failed />}
+			{isError ? <Failed/> : isLoading && <Loading/>}
 			<div className={styles.container}>
 				<div className={styles.homeInfo}>
-					<HomeContent/>
+					<HomeContent />
 				</div>
 				<div className={styles.prices}>
 					<Prices />

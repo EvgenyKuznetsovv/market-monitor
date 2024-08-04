@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import IPriceData from "../../interfaces/IPriceData";
 import { priceDataProcessed} from "../dataProcessing";
-// import { currency, coins } from "../../CoinSettings";
 
 export const fetchPrices = createAsyncThunk(
   'prices/fetchCandles',

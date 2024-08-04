@@ -1,5 +1,10 @@
+import styles from './Failed.module.scss'
+
 export default function(){
-    return(
-        <h1>Что-то пошло не так...</h1>
-    );
+    return (
+			<div>
+				<div className={styles.backdrop}></div>
+				<h1 className={styles.message}>Что-то пошло не так...</h1>
+			</div>
+		)
 }

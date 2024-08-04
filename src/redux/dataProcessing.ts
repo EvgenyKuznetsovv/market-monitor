@@ -42,19 +42,5 @@ export function processedHistoryData(rawData: RawData[]): IHistoryData[] {
 	}))
 }
 
-export function createChartData(historyData: IHistoryData[]): IChartData{
-	return {
-		labels: historyData.map(d => d.time),
-		datasets: [
-			{
-				label: `Цена`,
-				data: historyData.map(d => d.close),
-				borderColor: 'rgba(75, 192, 192, 1)',
-				backgroundColor: 'rgba(75, 192, 192, 0.2)',
-				fill: false,
-				borderWidth: 1,
-			},
-		],
-	}
-}
+
 

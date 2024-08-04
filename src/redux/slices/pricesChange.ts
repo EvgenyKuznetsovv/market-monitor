@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import IHistoryData from '../../interfaces/IHistoryData'
-import { createChartData, processedHistoryData } from '../dataProcessing'
+import {processedHistoryData } from '../dataProcessing'
 
 export const fetchPriceChange = createAsyncThunk(
 	'price-history/fetchPriceChange',

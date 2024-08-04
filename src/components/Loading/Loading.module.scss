@@ -1,0 +1,37 @@
+@mixin fixed-center {
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+@mixin full-screen-backdrop {
+    @include fixed-center;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 100;
+}
+
+.backdrop{
+    @include full-screen-backdrop;
+}
+
+.bitcoin {
+    width: 100px;
+    height: 100px;
+    z-index: 101;
+    @include fixed-center;
+    animation: spin 2s linear infinite;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

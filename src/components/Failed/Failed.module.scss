@@ -1,0 +1,28 @@
+@mixin fixed-center {
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+@mixin full-screen-backdrop {
+    @include fixed-center;
+    background-color: black;
+    opacity: 0.9;
+    z-index: 100;
+}
+
+.backdrop{
+    @include full-screen-backdrop;
+}
+
+.message{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 200px;
+    z-index: 120;
+    color: rgb(186, 28, 28);
+}

@@ -32,6 +32,7 @@ export default function Candles() {
 	};
 	
     useEffect(()=>{
+		// form default values
 		formHandler(coins[0][1], intervals[0][1], numbersOfCandles[0])
 	}, []);
 

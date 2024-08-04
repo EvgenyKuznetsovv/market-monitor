@@ -4,6 +4,7 @@ import { useSelector } from "../../redux/hooks";
 import IPriceData from "../../interfaces/IPriceData";
 import Loading from "../../components/Loading/Loading";
 import Failed from "../../components/Failed/Failed";
+import HomeContent from "../../components/HomeContent/HomeContent";
 
 
 interface AppState {
@@ -27,7 +28,9 @@ export default function Home (){
 			{isLoading && <Loading />}
 			{isError && <Failed />}
 			<div className={styles.container}>
-				<div className={styles.homeInfo}>СОДЕРЖИМОЕ ГЛАВНОЙ СТРАНИЦЫ</div>
+				<div className={styles.homeInfo}>
+					<HomeContent/>
+				</div>
 				<div className={styles.prices}>
 					<Prices />
 				</div>

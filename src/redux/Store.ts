@@ -2,7 +2,7 @@ import { configureStore, Middleware} from "@reduxjs/toolkit";
 import { candlesReducer } from "./slices/candles";
 import { pricesReducer } from "./slices/price";
 import { priceChangeReducer } from "./slices/pricesChange";
-// import { localStoragePrice } from "./middlewares/localstoragePrice";
+import { priceLocalStorage } from "./middlewares/priceLocalStorage";
 
 
 
@@ -12,7 +12,7 @@ export const store = configureStore({
 		prices: pricesReducer,
 		changePrice: priceChangeReducer,
 	},
-	// middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStoragePrice),
+	// middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(priceLocalStorage),
 })
 
 export type AppDispatch = typeof store.dispatch;

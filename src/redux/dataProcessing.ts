@@ -1,5 +1,7 @@
 import DataPoint from "../interfaces/DataPoint"
 import IPriceData from "../interfaces/IPriceData"
+import IHistoryData from "../interfaces/IHistoryData"
+import IChartData from "../interfaces/IChartData"
 
 interface RawData {
 	[index: number]: number | string
@@ -33,4 +35,26 @@ export function priceDataProcessed(priceData: IPriceData[], currency: string, co
     return cleanFilterData;
 }
 
+export function processedHistoryData(rawData: RawData[]): IHistoryData[] {
+	return rawData.map(item => ({
+		time: new Date(item[0]).toLocaleDateString(),
+		close: parseFloat(item[4] as string),
+	}))
+}
+
+export function createChartData(historyData: IHistoryData[]): IChartData{
+	return {
+		labels: historyData.map(d => d.time),
+		datasets: [
+			{
+				label: `Цена`,
+				data: historyData.map(d => d.close),
+				borderColor: 'rgba(75, 192, 192, 1)',
+				backgroundColor: 'rgba(75, 192, 192, 0.2)',
+				fill: false,
+				borderWidth: 1,
+			},
+		],
+	}
+}
 

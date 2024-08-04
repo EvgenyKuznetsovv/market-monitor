@@ -36,7 +36,7 @@ const candlesSlice = createSlice({
         builder
             .addCase(fetchCandles.pending, (state) => {
                 state.status = 'loading';
-                state.candles = [];
+                // state.candles = [];
             })
             .addCase(fetchCandles.fulfilled, (state, action) => {
                 state.status = 'loaded';

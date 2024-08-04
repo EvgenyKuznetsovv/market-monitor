@@ -13,7 +13,7 @@ export default function LinerChart({chartData}: any){
 								display: true,
 								title: {
 									display: true,
-									text: 'Date',
+									text: 'Дата',
 								},
 							},
 							y: {

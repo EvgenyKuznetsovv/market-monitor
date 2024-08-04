@@ -1,28 +1,18 @@
 import { useEffect, useState } from "react"
 import {Chart, registerables } from 'chart.js'
 import LinerChart from "../../components/LinerChart/LinerChart"
-import { coins } from "../../CoinSettings"
+import { coins, currency } from "../../CoinSettings"
 import styles from './PriceChange.module.scss'
+import IHistoryData from "../../interfaces/IHistoryData"
+import IChartData from "../../interfaces/IChartData"
+import { useDispatch, useSelector } from "../../redux/hooks"
+import { fetchPriceChange } from "../../redux/slices/pricesChange"
+import Loading from "../../components/Loading/Loading"
+import Failed from "../../components/Failed/Failed"
 
 Chart.register(...registerables)
 
-interface RawData {
-	[index: number]: number | string
-}
-
-interface HistoryData {
-    time: string,
-    close: number,
-}
-
-function processedHistoryData(rawData: RawData[]): HistoryData[] {
-    return rawData.map((item) => ({
-        time: new Date(item[0]).toLocaleDateString(),
-        close: parseFloat(item[4] as string),
-    }) )
-}
-
-function createChartData(historyData: HistoryData[], symbol: string ){
+function createChartData(historyData: IHistoryData[]): IChartData{
     return {
 			labels: historyData.map(d => d.time),
 			datasets: [
@@ -38,42 +28,39 @@ function createChartData(historyData: HistoryData[], symbol: string ){
 		}
 }
 
+interface AppState{
+    changePrice: {
+        prices: IHistoryData[]
+        status: string
+    }
+}
+
 export default function PriceChange() {
-    const [data, setData] = useState<any>([]);
-    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const prices = useSelector((state: AppState) => state.changePrice)
+    const chartData = createChartData(prices.prices);
+
+    const isLoading = prices.status === 'loading';
+    const isError = prices.status === 'error';
 
     function selectHandler(event: React.ChangeEvent<HTMLSelectElement>){
-        console.log(event.target.value);
+        const coin = event.target.value;
+        dispatch(fetchPriceChange({ symbol: `${coin}${currency}` }))
+        
     }
     
-    const getKlines = async (symbol: string) => {
-			const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d&limit=50`
-			try {
-				const response = await fetch(url)
-				const data = await response.json()
-				return data
-			} catch (error) {
-				console.error(`Error fetching data for ${symbol}:`, error)
-			}
-		}
-
-        useEffect(()=>{
-            getKlines('BTCUSDT').then(data =>{
-							setData(
-								createChartData(processedHistoryData(data), 'BTCUSDT'),
-							)
-                            console.log(createChartData(processedHistoryData(data), 'BTCUSDT') );
-                            setLoading(true);
-                        }        
-					);
-        },[]);
-        console.log('data: ', data);
+    useEffect(()=>{
+        dispatch(fetchPriceChange({symbol: `${coins[0][1]}${currency}`}))
+    },[]);
+        
 
     return (
 			<div className={styles.container}>
 				<h1>График изменения цены</h1>
+                {isLoading && <Loading/>}
+                {isError && <Failed/>}
 				<div>
-					{loading && <LinerChart chartData={data} />}
+					<LinerChart chartData={chartData} />
 				</div>
 				<div>
 					<form className={styles.selectCoin}>

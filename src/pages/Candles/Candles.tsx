@@ -12,7 +12,7 @@ import Failed from '../../components/Failed/Failed';
 
 interface AppState {
 	candles: {
-		candles: DataPoint	[]
+		candles: DataPoint[]
 		status: string
 	}
 }

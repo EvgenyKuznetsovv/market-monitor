@@ -1,0 +1,17 @@
+.header{
+    text-align: center;
+}
+
+.container{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px;
+}
+
+.chart {
+    flex: 0 1 auto; 
+}
+
+.settings {
+    flex: 0 1 20%; 
+}

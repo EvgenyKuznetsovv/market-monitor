@@ -1,0 +1,17 @@
+.siteName{
+    text-align: center;
+    color: #282c34;
+}
+
+.container{
+    display: flex;
+}
+
+.homeInfo{
+    flex: 0 1 70%;
+    font-size: large;
+}
+
+.prices{
+    flex: 0 1 30%;
+}

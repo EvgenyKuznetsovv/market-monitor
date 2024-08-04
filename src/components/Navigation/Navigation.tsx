@@ -1,13 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, NavLinkRenderProps } from "react-router-dom";
 import styles from "./Navigation.module.scss"
 
 export default function Navigation(){
+	const navLinkStyle = ({ isActive }: NavLinkRenderProps) => isActive ? `${styles.navLink} ${styles.activeNavLink}` : styles.navLink;
     return (
 			<nav className={styles.navigation}>
-				<NavLink to="/" className={({ isActive }) => isActive ? `${styles.navLink} ${styles.activeNavLink}` : styles.navLink}>Главная</NavLink>
-                <NavLink to="/price-history" className={({ isActive }) => isActive ? `${styles.navLink} ${styles.activeNavLink}` : styles.navLink}>История цен</NavLink>
-                <NavLink to="/candles" className={({ isActive }) => isActive ? `${styles.navLink} ${styles.activeNavLink}` : styles.navLink}>Свечи</NavLink>
+				<NavLink to="/" className={navLinkStyle}>Главная</NavLink>
+                <NavLink to="/price-history" className={navLinkStyle}>История цен</NavLink>
+                <NavLink to="/candles" className={navLinkStyle}>Свечи</NavLink>
 			</nav>
 		)
 }

@@ -37,7 +37,7 @@ const pricesSlice = createSlice({
         builder
             .addCase(fetchPrices.pending, (state) => {
                 state.status = 'loading';
-                state.prices = [];
+                // state.prices = [];
             })
             .addCase(fetchPrices.fulfilled, (state, action) => {
                 state.status = 'loaded';

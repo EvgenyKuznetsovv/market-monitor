@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { tempDataPrice } from "../../CoinSettings";
 import styles from './Prices.module.scss'
-import { currency, coins } from "../../CoinSettings";
+import { currency, coins, timeUpdate } from "../../CoinSettings";
 import { useDispatch, useSelector } from "../../redux/hooks";
 import { fetchPrices } from "../../redux/slices/price";
 import IPriceData from "../../interfaces/IPriceData";
+
 
 interface AppState {
 	prices: {
@@ -17,12 +17,17 @@ export default function() {
     const dispatch = useDispatch();
     const prices = useSelector((state: AppState) => state.prices.prices);
 
-    // const isLoading = prices.status === 'loading';
-    // const isError = prices.status === 'error'
+    useEffect(() => {
+        dispatch(fetchPrices({ currency, coins }));
 
-    useEffect(()=>{
-        dispatch(fetchPrices({currency, coins}));
-    },[])
+        const intervalId = setInterval(() => {
+            dispatch(fetchPrices({ currency, coins }))
+        }, timeUpdate);
+        
+        return () => {
+            clearInterval(intervalId)
+        }
+    }, [])
 
     console.log(prices);
 

@@ -16,8 +16,10 @@ interface AppState {
 export default function Home (){
 	const prices = useSelector((state: AppState) => state.prices)
 
-	const isLoading = prices.status === 'loading';
+	const isLoading = prices.prices.length === 0;
 	const isError = prices.status === 'error'
+
+    console.log(prices)
 
 	return (
 		<>

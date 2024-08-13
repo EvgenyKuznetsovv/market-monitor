@@ -1,22 +1,22 @@
-import { useState } from "react"
-import { currency, coins, intervals, numbersOfCandles } from "../../CoinSettings"
-import styles from './CandleForm.module.scss'
+import { coins, intervals, numbersOfCandles } from "../../CoinSettings";
+import styles from './CandleForm.module.scss';
+import { useCandleForm } from "../../hooks/candleForm";
 
 interface Props {
 	send: (coin: string, interval: string, candleNumber: number) => void
 }
 
 export default function ({send}: Props) {
-    const [coin, setCoin] = useState<string>(coins[0][1]);
-    const [interval, setInterval] = useState<string>(intervals[0][1]);
-    const [candlesNumber, setCandlesNumber] =  useState<number>(numbersOfCandles[0]);
 
-    // console.log(coin, interval, candlesNumber);
-
-    const submitHandler = (event: React.FormEvent) => {
-		event.preventDefault();
-        send(coin, interval, candlesNumber);
-	}
+	const {
+		coin,
+		interval,
+		candlesNumber,
+		submitHandler,
+		setCoin,
+		setInterval,
+		setCandlesNumber,
+	} = useCandleForm(send); 
 
     return (
 			<form onSubmit={submitHandler} className={styles.settings}>

@@ -1,35 +1,11 @@
-import { useEffect, useState } from "react";
 import styles from './Prices.module.scss'
-import { currency, coins, timeUpdate } from "../../CoinSettings";
-import { useDispatch, useSelector } from "../../redux/hooks";
-import { fetchPrices } from "../../redux/slices/price";
+import { currency } from "../../CoinSettings";
 import IPriceData from "../../interfaces/IPriceData";
-
-
-interface AppState {
-	prices: {
-		prices: IPriceData[]
-		status: string
-	}
-}
+import { usePrices } from "../../hooks/prices";
 
 export default function() {
-    const dispatch = useDispatch();
-    const prices = useSelector((state: AppState) => state.prices.prices);
 
-    useEffect(() => {
-        dispatch(fetchPrices({ currency, coins }));
-
-        const intervalId = setInterval(() => {
-            dispatch(fetchPrices({ currency, coins }))
-        }, timeUpdate);
-        
-        return () => {
-            clearInterval(intervalId)
-        }
-    }, [])
-
-    console.log(prices);
+	const { prices } = usePrices();
 
     return (
 			<div className={styles.container}>

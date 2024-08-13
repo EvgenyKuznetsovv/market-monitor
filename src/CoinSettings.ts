@@ -1,5 +1,5 @@
 export const currency = 'USDT'
-export const timeUpdate = 5000;
+export const timeUpdate = 10000;
 
 export const coins = [
 	['Bitcoin', `BTC`],

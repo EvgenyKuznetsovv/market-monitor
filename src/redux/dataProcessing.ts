@@ -1,20 +1,17 @@
-import DataPoint from "../interfaces/DataPoint"
-import IPriceData from "../interfaces/IPriceData"
-import IHistoryData from "../interfaces/IHistoryData"
-import IChartData from "../interfaces/IChartData"
-
-interface RawData {
-	[index: number]: number | string
-}
+import DataPoint from "../interfaces/DataPoint";
+import IPriceData from "../interfaces/IPriceData";
+import IHistoryData from "../interfaces/IHistoryData";
+import IChartData from "../interfaces/IChartData";
+import IRawData from "../interfaces/IRawData";
 
 function parseToNumber(str: string): number {
 	return +Number.parseFloat(str).toFixed(2)
 }
 
-export function candlesDataPreparation(rawData: RawData[]): DataPoint[] {
+export function candlesDataPreparation(rawData: IRawData[]): DataPoint[] {
 	const processedData: DataPoint[] = []
 
-	rawData.map((item: RawData) => {
+	rawData.map((item: IRawData) => {
 		processedData.push({
 			date: new Date(item[0] as number),
 			open: parseToNumber(item[1] as string),
@@ -35,7 +32,7 @@ export function priceDataProcessed(priceData: IPriceData[], currency: string, co
     return cleanFilterData;
 }
 
-export function processedHistoryData(rawData: RawData[]): IHistoryData[] {
+export function processedHistoryData(rawData: IRawData[]): IHistoryData[] {
 	return rawData.map(item => ({
 		time: new Date(item[0]).toLocaleDateString(),
 		close: parseFloat(item[4] as string),

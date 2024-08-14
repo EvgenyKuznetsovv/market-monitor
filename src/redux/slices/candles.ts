@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk, combineSlices } from "@reduxjs/toolkit";
 import { candlesDataPreparation } from "../dataProcessing";
 import DataPoint from "../../interfaces/DataPoint";
+import axios from "../../axios";
+import IRawData from "../../interfaces/IRawData";
 
 export const fetchCandles = createAsyncThunk(
   'candles/fetchCandles',
   async ({ symbol, interval, limit }: { symbol: string; interval: string; limit: number }, {rejectWithValue}) => {
     try{
-        const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`
-        const response = await fetch(url);
-        const data = await response.json();
+        const url = `/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
+        const { data } = await axios.get<IRawData[]>(url);
         return candlesDataPreparation(data);
     } catch (err){
         console.log(`Error: ${err}`);
@@ -21,7 +22,7 @@ export const fetchCandles = createAsyncThunk(
 interface ICandlesState {
 	candles: DataPoint[]
 	status: 'loading' | 'loaded' | 'error'
-}
+};
 
 const initialState: ICandlesState = {
     candles: [],

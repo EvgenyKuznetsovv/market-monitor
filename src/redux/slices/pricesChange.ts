@@ -1,18 +1,19 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import IHistoryData from '../../interfaces/IHistoryData'
-import {processedHistoryData } from '../dataProcessing'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import IHistoryData from '../../interfaces/IHistoryData';
+import {processedHistoryData } from '../dataProcessing';
+import axios from '../../axios';
+import IRawData from '../../interfaces/IRawData';
 
 export const fetchPriceChange = createAsyncThunk(
 	'price-history/fetchPriceChange',
 	async ({ symbol }: { symbol: string }, { rejectWithValue }) => {
 		try {
-			const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d&limit=50`
-			const response = await fetch(url)
-			const data = await response.json()
-			return processedHistoryData(data)
+			const url = `/klines?symbol=${symbol}&interval=1d&limit=50`;
+			const { data } = await axios.get<IRawData[]>(url);
+			return processedHistoryData(data);
 		} catch (err) {
-			console.log(`Error: ${err}`)
-			return rejectWithValue('Failed')
+			console.log(`Error: ${err}`);
+			return rejectWithValue('Failed');
 		}
 	}
 )

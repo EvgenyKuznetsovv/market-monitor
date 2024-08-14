@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import IPriceData from "../../interfaces/IPriceData";
 import { priceDataProcessed} from "../dataProcessing";
+import axios from '../../axios';
 
 export const fetchPrices = createAsyncThunk(
   'prices/fetchCandles',
   async ({currency, coins}: {currency: string, coins: string[][]}, {rejectWithValue}) => {
     try{
-        const url = 'https://api.binance.com/api/v3/ticker/price';
-        const response = await fetch(url);
-        const data = await response.json();
+        const url = '/ticker/price';
+        const { data } = await axios.get<IPriceData[]>(url);
         return priceDataProcessed(data, currency, coins);
     } catch (err){
         console.log(`Error: ${err}`);

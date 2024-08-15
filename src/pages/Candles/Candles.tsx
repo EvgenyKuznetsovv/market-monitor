@@ -4,7 +4,7 @@ import styles from "./Candles.module.scss"
 import Loading from '../../components/Loading/Loading';
 import Failed from '../../components/Failed/Failed';
 import { useCandles } from '../../hooks/candles';
-
+import { ErrorBoundary } from 'react-error-boundary';
 
 export default function Candles() {
 
@@ -15,6 +15,7 @@ export default function Candles() {
 				<h1 className={styles.header}>График свечей</h1>
 				{isLoading && <Loading/>}
 				{isError && <Failed/>}
+				<ErrorBoundary fallback={<h1>Ошибка при отрисовке графика</h1>}>
 				<div className={styles.container}>
 
 					<div className={styles.chart}>
@@ -26,6 +27,7 @@ export default function Candles() {
 					</div>
 					
 				</div>
+				</ErrorBoundary>
 			</>
 		)
 }

@@ -20,7 +20,7 @@ interface Props {
 
 export default function CandlestickChart({ data, width, ratio }: Props) {
 	const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor(
-		(d: DataPoint) => d.date
+		(d: DataPoint) => new Date(d.date)
 	)
 
 	const {

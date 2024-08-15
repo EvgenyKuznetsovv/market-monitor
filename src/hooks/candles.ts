@@ -27,7 +27,7 @@ export function useCandles() {
 				limit: candleNumber,
 			})
 		);
-		console.log(coin, interval, candleNumber);
+		// console.log(coin, interval, candleNumber);
 	}
 
 	useEffect(() => {

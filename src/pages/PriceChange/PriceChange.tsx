@@ -5,6 +5,7 @@ import styles from './PriceChange.module.scss'
 import Loading from "../../components/Loading/Loading"
 import Failed from "../../components/Failed/Failed"
 import { usePriceChange } from "../../hooks/priceChange"
+import { ErrorBoundary } from 'react-error-boundary'
 
 Chart.register(...registerables)
 
@@ -17,9 +18,11 @@ export default function PriceChange() {
 				<h1>График изменения цены</h1>
                 {isLoading && <Loading/>}
                 {isError && <Failed/>}
+				<ErrorBoundary fallback={<h1>Ошибка при отрисовке графика</h1>}>
 				<div>
 					<LinerChart chartData={chartData} />
 				</div>
+				</ErrorBoundary>
 				<div>
 					<form className={styles.selectCoin}>
 						<label htmlFor='coin'>Монета</label>

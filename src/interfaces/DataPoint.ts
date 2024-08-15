@@ -1,5 +1,5 @@
 export default interface DataPoint {
-	date: Date
+	date: string
 	open: number
 	high: number
 	low: number

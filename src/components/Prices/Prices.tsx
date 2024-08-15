@@ -13,7 +13,7 @@ export default function() {
 				<div className={styles.pricesContainer}>
 					{prices.map((price: IPriceData, index) => (
 						<div className={styles.priceItem} key={index}>
-							<b>{price.symbol}:</b> {price.price} {currency}
+							<b>{price?.symbol}:</b> {price?.price} {currency}
 						</div>
 					))}
 				</div>

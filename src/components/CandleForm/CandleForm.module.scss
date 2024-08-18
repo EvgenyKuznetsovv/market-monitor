@@ -1,5 +1,5 @@
 .settings {
-    flex: 0 1 20%; 
+    flex: 0 1 20%;
     background-color: #282c34;
     border-radius: 20px;
     display: flex;
@@ -16,16 +16,19 @@
     text-align: center;
 }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-    color: #fff;
-}
-select {
-    width: 100%;
-    padding: 8px;
-    border-radius: 4px;
-    border: none;
+.formGroup {
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #fff;
+    }
+
+    select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: none;
+    }
 }
 
 .submitButton {
@@ -39,11 +42,11 @@ select {
     margin-top: 20px;
 }
 
-.submitButton:hover{
+.submitButton:hover {
     background-color: #f2433a;
 }
 
-.submitButton:active{
+.submitButton:active {
     background-color: #ed6b64;
 }
 

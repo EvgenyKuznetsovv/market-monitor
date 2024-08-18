@@ -1,4 +1,4 @@
 export default interface IHistoryData {
-	time: string
-	close: number
-};
+    time: string;
+    close: number;
+}

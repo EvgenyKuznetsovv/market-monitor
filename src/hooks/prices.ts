@@ -1,34 +1,33 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../redux/hooks';
-import { currency, coins, timeUpdate } from "../CoinSettings";
-import IPriceData from "../interfaces/IPriceData";
-import { fetchPrices } from "../redux/slices/price";
-
+import { currency, coins, timeUpdate } from '../CoinSettings';
+import IPriceData from '../interfaces/IPriceData';
+import { fetchPrices } from '../redux/slices/price';
 
 interface AppState {
-	prices: {
-		prices: IPriceData[]
-		status: string
-	}
+    prices: {
+        prices: IPriceData[];
+        status: string;
+    };
 }
 
 export function usePrices() {
-	const dispatch = useDispatch()
-	const prices = useSelector((state: AppState) => state.prices.prices)
+    const dispatch = useDispatch();
+    const prices = useSelector((state: AppState) => state.prices.prices);
 
-	useEffect(() => {
-		dispatch(fetchPrices({ currency, coins }))
+    useEffect(() => {
+        dispatch(fetchPrices({ currency, coins }));
 
-		const intervalId = setInterval(() => {
-			dispatch(fetchPrices({ currency, coins }))
-		}, timeUpdate)
+        const intervalId = setInterval(() => {
+            dispatch(fetchPrices({ currency, coins }));
+        }, timeUpdate);
 
-		return () => {
-			clearInterval(intervalId)
-		}
-	}, [])
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [dispatch]);
 
-	// console.log(prices);
+    // console.log(prices);
 
     return { prices };
 }

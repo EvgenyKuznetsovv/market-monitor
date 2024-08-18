@@ -1,3 +1,3 @@
 export default interface IPriceData {
-	[key: string]: string
+    [key: string]: string;
 }
